@@ -5,13 +5,12 @@ export async function CreateProductController(
     request: Request,
     response: Response
 ) {
-    const { name, bar_code, price } = request.body;
+    const { name, email } = request.body;
 
-    const product = await prismaClient.product.create({
+    const product = await prismaClient.user.create({
         data: {
-            bar_code,
             name,
-            price,
+            email,
         },
     });
 
