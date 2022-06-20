@@ -1,5 +1,5 @@
 iniciar projeto
 
 ```bash
-docker-compse up -d
+docker-compose up --build --remove-orphans
 ```

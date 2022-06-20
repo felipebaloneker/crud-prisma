@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { prismaClient } from '../database/prismaClient';
 
-export async function CreateProductController(
+export async function CreateUserController(
     request: Request,
     response: Response
 ) {
