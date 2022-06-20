@@ -1,13 +1,18 @@
 FROM node:16
 
+ENV DATABASE_URL=postgresql://postgres:12345@db:5432/prisma-node?schema=public
+
 WORKDIR /app
 
-COPY package*.json ./
-
-COPY ./prisma prisma
+COPY package.json package.json
+COPY yarn.lock yarn.lock
+COPY prisma ./prisma/
 
 RUN yarn install
 
-COPY . ./
+RUN npx prisma generate 
+RUN npx prisma migrate deploy
+
+COPY . .
 
 RUN yarn compile

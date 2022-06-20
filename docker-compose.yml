@@ -3,21 +3,26 @@ version: '3'
 services:
     db: # hostname
         image: postgres
+        restart: always
         environment: # default user is postgres
             POSTGRES_PASSWORD: '12345'
             POSTGRES_DB: 'prisma-node' #database name
         ports:
             - '5432:5432'
+        networks:
+            - shared-network
     server:
+        container_name: prisma-api
+        restart: unless-stopped
         build:
             context: .
             dockerfile: Dockerfile
-        container_name: 'server'
-        restart: always
         ports:
             - 3000:3000
+        networks:
+            - shared-network
         command: yarn runServer
         depends_on:
             - db
-volumes:
-    postgres_server:
+networks:
+    shared-network:
